@@ -1,0 +1,53 @@
+package recloudstream
+
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+
+data class PlatformSample(
+    val platformName: String,
+    val imdbScore: Double,
+    val hasTurkishDub: Boolean,
+    val hasSubtitles: Boolean,
+    val videoUrl: String
+)
+
+object PlatformCatalog {
+    private const val EXAMPLE_VIDEO_URL = "https://example.com/sample-video.mp4"
+
+    private val platforms = listOf(
+        PlatformSample("Örnek Film Platformu 1", 8.4, true, true, EXAMPLE_VIDEO_URL),
+        PlatformSample("Örnek Dizi Platformu 2", 8.1, true, true, EXAMPLE_VIDEO_URL),
+        PlatformSample("Örnek Film Platformu 3", 7.9, false, true, EXAMPLE_VIDEO_URL),
+        PlatformSample("Örnek Dizi Platformu 4", 7.7, true, false, EXAMPLE_VIDEO_URL),
+        PlatformSample("Örnek Film Platformu 5", 7.5, false, true, EXAMPLE_VIDEO_URL),
+        PlatformSample("Örnek Dizi Platformu 6", 8.0, true, true, EXAMPLE_VIDEO_URL),
+        PlatformSample("Örnek Film Platformu 7", 7.2, false, true, EXAMPLE_VIDEO_URL),
+        PlatformSample("Örnek Dizi Platformu 8", 8.3, true, true, EXAMPLE_VIDEO_URL),
+        PlatformSample("Örnek Film Platformu 9", 7.6, true, false, EXAMPLE_VIDEO_URL),
+        PlatformSample("Örnek Dizi Platformu 10", 7.4, false, true, EXAMPLE_VIDEO_URL)
+    )
+
+    fun listAll(): List<PlatformSample> = platforms
+
+    fun filter(
+        minimumImdbScore: Double? = null,
+        turkishDubOnly: Boolean = false,
+        subtitlesOnly: Boolean = false
+    ): List<PlatformSample> {
+        return platforms.filter { platform ->
+            (minimumImdbScore == null || platform.imdbScore >= minimumImdbScore) &&
+                (!turkishDubOnly || platform.hasTurkishDub) &&
+                (!subtitlesOnly || platform.hasSubtitles)
+        }
+    }
+
+    fun openExternalVideo(context: Context, platform: PlatformSample) {
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            setDataAndType(Uri.parse(platform.videoUrl), "video/*")
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+
+        context.startActivity(intent)
+    }
+}
