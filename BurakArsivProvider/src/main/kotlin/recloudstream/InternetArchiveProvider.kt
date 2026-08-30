@@ -39,7 +39,7 @@ import kotlin.math.roundToInt
 
 class BurakArsivProvider : MainAPI() {
     override var mainUrl = "https://archive.org"
-    "Burak Arşiv"
+    override var name = "Burak Arşiv"
     override val supportedTypes = setOf(TvType.Others)
     override var lang = "en"
     override val hasMainPage = true
