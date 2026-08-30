@@ -1,9 +1,5 @@
 package recloudstream
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
-
 data class PlatformSample(
     val platformName: String,
     val imdbScore: Double,
@@ -13,8 +9,6 @@ data class PlatformSample(
 )
 
 object PlatformCatalog {
-    // BURASI ÇOK KRİTİK: İzlemek istediğin sitelerin yayın/video linklerini (m3u8, mp4 veya web adresi)
-    // aşağıda tırnak içindeki "LINK_BURAYA" yazan yerleri silerek doğrudan kendin yapıştıracaksın.
     private val platforms = listOf(
         PlatformSample("BluTV", 8.2, true, true, "LINK_BURAYA"),
         PlatformSample("Netflix Türkiye", 8.3, true, true, "LINK_BURAYA"),
@@ -29,29 +23,4 @@ object PlatformCatalog {
     )
 
     fun listAll(): List<PlatformSample> = platforms
-
-    fun filter(
-        minimumImdbScore: Double? = null,
-        turkishDubOnly: Boolean = false,
-        subtitlesOnly: Boolean = false
-    ): List<PlatformSample> {
-        return platforms.filter { platform ->
-            (minimumImdbScore == null || platform.imdbScore >= minimumImdbScore) &&
-                (!turkishDubOnly || platform.hasTurkishDub) &&
-                (!subtitlesOnly || platform.hasSubtitles)
-        }
-    }
-
-    fun openExternalVideo(context: Context, platform: PlatformSample) {
-        val intent = Intent(Intent.ACTION_VIEW).apply {
-            // Eğer buraya direkt video linki koyarsan oynatıcı açar, web sitesi linki koyarsan tarayıcı açar
-            if (platform.videoUrl.contains(".mp4") || platform.videoUrl.contains(".m3u8")) {
-                setDataAndType(Uri.parse(platform.videoUrl), "video/*")
-            } else {
-                data = Uri.parse(platform.videoUrl)
-            }
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        }
-        context.startActivity(intent)
-    }
 }
