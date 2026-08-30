@@ -17,24 +17,21 @@ class BurakArsivProvider : MainAPI() {
     override var mainUrl = "https://example.com"
     override var name = "Burak Arşiv (Popüler Platformlar)"
     override val supportedTypes = setOf(TvType.Movie, TvType.TvSeries)
-    override var lang = "tr" // Dil seçeneğini Türkçe yaptık
+    override var lang = "tr"
     override val hasMainPage = true
 
-    // Cloudstream ana sayfasında 10 popüler taslak platformu listeleyen fonksiyon
     override suspend fun getMainPage(page: Int, request: MainPageRequest): HomePageResponse? {
         val catalogItems = PlatformCatalog.listAll()
         val movieSearchList = ArrayList<SearchResponse>()
 
         catalogItems.forEachIndexed { index, platform ->
-            // Her platformu Cloudstream'in anlayacağı bir arama/kart sonucuna dönüştürüyoruz
             movieSearchList.add(
                 newMovieSearchResponse(
                     name = "${platform.platformName} (IMDb: ${platform.imdbScore})",
-                    url = "$mainUrl/details/$index", // Her biri için taslak bir detay linki oluşturduk
+                    url = "$mainUrl/details/$index",
                     apiName = this.name,
                     type = TvType.Movie
                 ) {
-                    // Kartın üzerinde Dublaj ve Altyazı bilgisini not olarak gösteriyoruz
                     this.posterUrl = "https://example.com"
                 }
             )
@@ -52,9 +49,7 @@ class BurakArsivProvider : MainAPI() {
         )
     }
 
-    // Kullanıcı ana sayfadan bir kanala tıkladığında detay sayfasını yükleyen fonksiyon
     override suspend fun load(url: String): LoadResponse? {
-        // Tıklanan elemanın indeksini URL'den çekiyoruz
         val index = url.substringAfterLast("/").toIntOrNull() ?: 0
         val platform = PlatformCatalog.listAll().getOrNull(index) ?: return null
 
@@ -72,11 +67,10 @@ class BurakArsivProvider : MainAPI() {
         ) {
             this.posterUrl = "https://example.com"
             this.plot = "Bu kanal en popüler içerikleri barındırır. IMDb Puanı: ${platform.imdbScore}. $optionsText"
-            this.rating = (platform.imdbScore * 10).toInt() // Cloudstream puan sistemine uyarladık
+            this.rating = (platform.imdbScore * 10).toInt()
         }
     }
 
-    // "Oynat" butonuna basıldığında video kaynağını ve altyazıyı bağlayan fonksiyon
     override suspend fun loadLinks(
         data: String,
         isCasting: Boolean,
@@ -86,22 +80,20 @@ class BurakArsivProvider : MainAPI() {
         val index = data.substringAfterLast("/").toIntOrNull() ?: 0
         val platform = PlatformCatalog.listAll().getOrNull(index) ?: return false
 
-        // Eğer platformda altyazı seçeneği true ise altyazı dosyasını yüklüyoruz
         if (platform.hasSubtitles) {
             subtitleCallback.invoke(
                 SubtitleFile(
                     lang = "Türkçe",
-                    url = "https://example.com" // Taslak altyazı adresi
+                    url = "https://example.com"
                 )
             )
         }
 
-        // Video oynatıcıyı yasal ve güvenli test videosuyla tetikliyoruz
         callback.invoke(
             ExtractorLink(
                 source = this.name,
                 name = if (platform.hasTurkishDub) "Türkçe Dublaj (1080p)" else "Orijinal Ses (1080p)",
-                url = platform.videoUrl, // PlatformCatalog.kt içindeki güvenli video URL'si
+                url = platform.videoUrl,
                 referer = mainUrl,
                 quality = Qualities.P1080.value
             )
