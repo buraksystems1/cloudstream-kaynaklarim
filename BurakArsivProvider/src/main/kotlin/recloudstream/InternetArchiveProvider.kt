@@ -15,7 +15,7 @@ import com.lagradost.cloudstream3.utils.SubtitleFile
 
 class InternetArchiveProvider : MainAPI() {
     override var mainUrl = "https://example.com"
-    override var name = "Burak Arşiv (Popüler Platformlar)"
+    override var name = "Burak Arşiv"
     override val supportedTypes = setOf(TvType.Movie, TvType.TvSeries)
     override var lang = "tr"
     override val hasMainPage = true
@@ -38,13 +38,7 @@ class InternetArchiveProvider : MainAPI() {
         }
 
         return HomePageResponse(
-            listOf(
-                HomePageList(
-                    name = "Türkiye'de En Çok İzlenen Popüler Kanallar",
-                    list = movieSearchList,
-                    isHorizontalLayout = true
-                )
-            ),
+            listOf(HomePageList("Türkiye'de En Çok İzlenen Popüler Kanallar", movieSearchList, true)),
             hasNext = false
         )
     }
@@ -53,20 +47,9 @@ class InternetArchiveProvider : MainAPI() {
         val index = url.substringAfterLast("/").toIntOrNull() ?: 0
         val platform = PlatformCatalog.listAll().getOrNull(index) ?: return null
 
-        val optionsText = buildString {
-            append("Mevcut Seçenekler: ")
-            if (platform.hasTurkishDub) append("[Türkçe Dublaj] ")
-            if (platform.hasSubtitles) append("[Altyazı] ")
-        }
-
-        return newMovieLoadResponse(
-            name = platform.platformName,
-            url = url,
-            apiName = this.name,
-            dataUrl = url
-        ) {
+        return newMovieLoadResponse(platform.platformName, url, this.name, url) {
             this.posterUrl = "https://example.com"
-            this.plot = "Bu kanal en popüler içerikleri barındırır. IMDb Puanı: ${platform.imdbScore}. $optionsText"
+            this.plot = "IMDb Puanı: ${platform.imdbScore}. Dublaj: ${platform.hasTurkishDub}, Altyazı: ${platform.hasSubtitles}"
             this.rating = (platform.imdbScore * 10).toInt()
         }
     }
@@ -81,24 +64,18 @@ class InternetArchiveProvider : MainAPI() {
         val platform = PlatformCatalog.listAll().getOrNull(index) ?: return false
 
         if (platform.hasSubtitles) {
-            subtitleCallback.invoke(
-                SubtitleFile(
-                    lang = "Türkçe",
-                    url = "https://example.com"
-                )
-            )
+            subtitleCallback.invoke(SubtitleFile("Türkçe", "https://example.com"))
         }
 
         callback.invoke(
             ExtractorLink(
                 source = this.name,
-                name = if (platform.hasTurkishDub) "Türkçe Dublaj (1080p)" else "Orijinal Ses (1080p)",
+                name = if (platform.hasTurkishDub) "Türkçe Dublaj" else "Orijinal Ses",
                 url = platform.videoUrl,
                 referer = mainUrl,
                 quality = Qualities.P1080.value
             )
         )
-
         return true
     }
 }
