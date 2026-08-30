@@ -1,0 +1,68 @@
+[
+    {
+        "iconUrl": "https://www.google.com/s2/favicons?domain=www.dailymotion.com&sz=%size%",
+        "jarFileSize": 54496,
+        "fileHash": "sha256-b7bbd5bd5a5457db78bc1f3ba80a483fac93c67563d47b5243d26b2a38b95733",
+        "apiVersion": 1,
+        "repositoryUrl": "https://github.com/buraksystems1/cloudstream-kaynaklarim",
+        "fileSize": 12965,
+        "status": 1,
+        "authors": [
+            "Luna712"
+        ],
+        "tvTypes": [
+            "Others"
+        ],
+        "version": 4,
+        "internalName": "DailymotionProvider",
+        "jarUrl": "https://raw.githubusercontent.com/buraksystems1/cloudstream-kaynaklarim/builds/DailymotionProvider.jar",
+        "description": "Watch content from Dailymotion",
+        "url": "https://raw.githubusercontent.com/buraksystems1/cloudstream-kaynaklarim/builds/DailymotionProvider.cs3",
+        "name": "DailymotionProvider",
+        "jarHash": "sha256-c02b6078ddb25e6e54871501f86ad27c1dabdfb050dfe7745306cf0f8a832d5d"
+    },
+    {
+        "iconUrl": "https://www.google.com/s2/favicons?domain=archive.org&sz=%size%",
+        "jarFileSize": 130049,
+        "fileHash": "sha256-cca99efdaf17e7e619068f976d3f7f1b75561aa614617b5a55b11801ceb0bcaa",
+        "apiVersion": 1,
+        "repositoryUrl": "https://github.com/buraksystems1/cloudstream-kaynaklarim",
+        "fileSize": 29423,
+        "status": 1,
+        "authors": [
+            "Luna712"
+        ],
+        "tvTypes": [
+            "Others"
+        ],
+        "version": 1,
+        "internalName": "InternetArchiveProvider",
+        "jarUrl": "https://raw.githubusercontent.com/buraksystems1/cloudstream-kaynaklarim/builds/InternetArchiveProvider.jar",
+        "description": "Watch content from the Internet Archive at archive.org",
+        "url": "https://raw.githubusercontent.com/buraksystems1/cloudstream-kaynaklarim/builds/InternetArchiveProvider.cs3",
+        "name": "InternetArchiveProvider",
+        "jarHash": "sha256-82d6e44899b7fd0d217ffd727a93dfcc125220bdf5625cbad39e9e67326f525d"
+    },
+    {
+        "iconUrl": "https://www.google.com/s2/favicons?domain=invidious.io&sz=%size%",
+        "jarFileSize": 68266,
+        "fileHash": "sha256-394d5ffb8ab4d3f66467df1055acfb14cb09a3934d9e084b72d83173c00735c5",
+        "apiVersion": 1,
+        "repositoryUrl": "https://github.com/buraksystems1/cloudstream-kaynaklarim",
+        "fileSize": 15288,
+        "status": 1,
+        "authors": [
+            "Cloudburst"
+        ],
+        "tvTypes": [
+            "Others"
+        ],
+        "version": 9,
+        "internalName": "InvidiousProvider",
+        "jarUrl": "https://raw.githubusercontent.com/buraksystems1/cloudstream-kaynaklarim/builds/InvidiousProvider.jar",
+        "description": "Watch content from any invidious instance",
+        "url": "https://raw.githubusercontent.com/buraksystems1/cloudstream-kaynaklarim/builds/InvidiousProvider.cs3",
+        "name": "InvidiousProvider",
+        "jarHash": "sha256-29d0d65803eab649d6340336317ca71f9eb1b37f256b8d8a3ea513c84e38da20"
+    }
+]

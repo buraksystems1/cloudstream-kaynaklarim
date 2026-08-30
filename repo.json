@@ -1,0 +1,8 @@
+﻿{
+    "name": "Burak Cloudstream Kaynaklar─▒",
+    "description": "Yasal ve a├ğ─▒k kaynakl─▒ film, dizi ve canl─▒ kanal eklentileri",
+    "manifestVersion": 1,
+    "pluginLists": [
+        "https://raw.githubusercontent.com/buraksystems1/cloudstream-kaynaklarim/builds/plugins.json"
+    ]
+}
