@@ -1,10 +1,10 @@
-// Use an integer for version numbers
+﻿// Use an integer for version numbers
 version = 1
 
 cloudstream {
     // All of these properties are optional, you can safely remove any of them.
 
-    description = "description = \"Internet Archive üzerindeki açık erişimli içerikler\"
+    description = "Internet Archive üzerindeki açık erişimli içerikler"
     authors = listOf("Burak Sezgin", "Luna712")
 
     /**
