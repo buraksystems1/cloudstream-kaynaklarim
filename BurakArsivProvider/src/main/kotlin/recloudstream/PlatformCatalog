@@ -13,19 +13,19 @@ data class PlatformSample(
 )
 
 object PlatformCatalog {
-    private const val EXAMPLE_VIDEO_URL = "https://example.com/sample-video.mp4"
-
+    // BURASI ÇOK KRİTİK: İzlemek istediğin sitelerin yayın/video linklerini (m3u8, mp4 veya web adresi)
+    // aşağıda tırnak içindeki "LINK_BURAYA" yazan yerleri silerek doğrudan kendin yapıştıracaksın.
     private val platforms = listOf(
-        PlatformSample("Örnek Film Platformu 1", 8.4, true, true, EXAMPLE_VIDEO_URL),
-        PlatformSample("Örnek Dizi Platformu 2", 8.1, true, true, EXAMPLE_VIDEO_URL),
-        PlatformSample("Örnek Film Platformu 3", 7.9, false, true, EXAMPLE_VIDEO_URL),
-        PlatformSample("Örnek Dizi Platformu 4", 7.7, true, false, EXAMPLE_VIDEO_URL),
-        PlatformSample("Örnek Film Platformu 5", 7.5, false, true, EXAMPLE_VIDEO_URL),
-        PlatformSample("Örnek Dizi Platformu 6", 8.0, true, true, EXAMPLE_VIDEO_URL),
-        PlatformSample("Örnek Film Platformu 7", 7.2, false, true, EXAMPLE_VIDEO_URL),
-        PlatformSample("Örnek Dizi Platformu 8", 8.3, true, true, EXAMPLE_VIDEO_URL),
-        PlatformSample("Örnek Film Platformu 9", 7.6, true, false, EXAMPLE_VIDEO_URL),
-        PlatformSample("Örnek Dizi Platformu 10", 7.4, false, true, EXAMPLE_VIDEO_URL)
+        PlatformSample("BluTV", 8.2, true, true, "LINK_BURAYA"),
+        PlatformSample("Netflix Türkiye", 8.3, true, true, "LINK_BURAYA"),
+        PlatformSample("Amazon Prime Video", 8.1, true, true, "LINK_BURAYA"),
+        PlatformSample("Gain", 7.9, true, true, "LINK_BURAYA"),
+        PlatformSample("PuhuTV", 7.5, true, true, "LINK_BURAYA"),
+        PlatformSample("Exxen", 6.8, true, true, "LINK_BURAYA"),
+        PlatformSample("Disney+ Türkiye", 8.0, true, true, "LINK_BURAYA"),
+        PlatformSample("Tabii (TRT)", 7.4, true, true, "LINK_BURAYA"),
+        PlatformSample("TOD (BeIN)", 7.6, true, true, "LINK_BURAYA"),
+        PlatformSample("MUBI", 8.4, false, true, "LINK_BURAYA")
     )
 
     fun listAll(): List<PlatformSample> = platforms
@@ -44,10 +44,14 @@ object PlatformCatalog {
 
     fun openExternalVideo(context: Context, platform: PlatformSample) {
         val intent = Intent(Intent.ACTION_VIEW).apply {
-            setDataAndType(Uri.parse(platform.videoUrl), "video/*")
+            // Eğer buraya direkt video linki koyarsan oynatıcı açar, web sitesi linki koyarsan tarayıcı açar
+            if (platform.videoUrl.contains(".mp4") || platform.videoUrl.contains(".m3u8")) {
+                setDataAndType(Uri.parse(platform.videoUrl), "video/*")
+            } else {
+                data = Uri.parse(platform.videoUrl)
+            }
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
-
         context.startActivity(intent)
     }
 }
