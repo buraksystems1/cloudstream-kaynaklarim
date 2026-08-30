@@ -13,7 +13,7 @@ import com.lagradost.cloudstream3.utils.ExtractorLink
 import com.lagradost.cloudstream3.utils.Qualities
 import com.lagradost.cloudstream3.utils.SubtitleFile
 
-class InternetArchiveProvider : MainAPI() { // Sınıf adını klasör ismiyle eşitledik
+class InternetArchiveProvider : MainAPI() {
     override var mainUrl = "https://example.com"
     override var name = "Burak Arşiv (Popüler Platformlar)"
     override val supportedTypes = setOf(TvType.Movie, TvType.TvSeries)
