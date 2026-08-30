@@ -11,7 +11,7 @@ import com.lagradost.cloudstream3.newMovieLoadResponse
 import com.lagradost.cloudstream3.newMovieSearchResponse
 import com.lagradost.cloudstream3.utils.ExtractorLink
 import com.lagradost.cloudstream3.utils.Qualities
-import com.lagradost.cloudstream3.utils.SubtitleFile
+import com.lagradost.cloudstream3.SubtitleFile
 import com.lagradost.cloudstream3.newHomePageResponse
 
 class BurakArsivProvider : MainAPI() {
@@ -61,7 +61,6 @@ class BurakArsivProvider : MainAPI() {
         ) {
             this.posterUrl = "https://example.com"
             this.plot = "Bu kanal en popüler içerikleri barındırır. IMDb Puanı: ${platformItem.imdbScore}. $optionsText"
-            this.score = (platformItem.imdbScore * 10).toInt()
         }
     }
 
